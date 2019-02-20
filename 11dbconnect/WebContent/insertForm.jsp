@@ -3,13 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<link rel="stylesheet" href="css/bootstrap.css">
+
 <title>회원가입</title>
 <script>
 function enterNo(){
-	   if(document.form1.memberID.value.length==0){
+	   if(document.form1.ID.value.length==0){
 	      alert('아이디를 입력해 주세요.');
-	      document.form1.memberID.focus();
+	      document.form1.ID.focus();
 	      return;
 	   }
 	   
@@ -21,9 +24,9 @@ function enterNo(){
 
 	function enterPass(){
 	   
-	   if(document.form1.memberID.value.length==0){
+	   if(document.form1.ID.value.length==0){
 	      alert('아이디를 입력해 주세요.');
-	      document.form1.memberID.focus();
+	      document.form1.ID.focus();
 	      return;
 	   }
 	   
@@ -39,9 +42,9 @@ function enterNo(){
 function doLogin(){
 
 
-	   if(document.form1.memberID.value.length==0){
+	   if(document.form1.ID.value.length==0){
 	      alert('아이디를 입력해 주세요.');
-	      document.form1.memberID.focus();
+	      document.form1.ID.focus();
 	      return;
 	   }
 	   
@@ -59,32 +62,44 @@ function doLogin(){
 </head>
 <body>
 
-<form action="insert.jsp" method="post" name="form1">
-<table border="1">
-	<tr>
-		<td><label>아이디<input type="email" name="memberID" size="30" placeholder="email 주소 입력" onkeydown="if(event.keyCode==13){return enterNo();}"></label>
+<div class="container">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+			<div class="jumbotron" style="padding-top: 20px;">
+				<form method="post" action="insert.jsp">
+					<h3 style="text-align: center;">회원가입 화면</h3>
+					<div class="form-group">
+						아이디<input type="email" class="form-control" placeholder="email 주소 입력" name="ID" maxlength="20" onkeydown="if(event.keyCode==13){return enterNo();}"></label>
 			<small style="color:red;">email형식을 입력해주세요.</small>
-		</td>
-	</tr>
-	<tr>
-		<td>이름<input type="text" name="name" size="30"></td>
-	</tr>
-	<tr>
-		<td>비밀번호<input type="password" name="password" placeholder="특문포함 8자이상" size="30" onkeydown="if(event.keyCode==13){return enterPass();}"></td>
-	</tr>
-	<tr>
-		<td>비밀번호 재확인<input type="password" name="password2" size="30" onkeydown="if(event.keyCode==13){return enterPass();}"></td>	
-	</tr>
-	<tr>
-		<td>생년월일<input type="text" name="birth" size="30"></td>
-	</tr>
-	<tr>
-		<td>전화번호<input type="text" name="phone" size="30"></td>
-	</tr>
-	<tr>
-		<td>프로필사진<input type="file" name="picture" size="30"></td>
-	</tr>
-	<tr>
-		<td colspan="4"><input type="submit" value="회원가입"></td>
-	</tr>
-</table>
+					</div>
+					<div class="form-group">
+						비밀번호<input type="password" class="form-control" placeholder="특문 포함 8자 이상" name="password" maxlength="20" onkeydown="if(event.keyCode==13){return enterPass();}">
+					</div>
+					<div class="form-group">
+						비밀번호 확인<input type="password" class="form-control" name="password2" maxlength="20" onkeydown="if(event.keyCode==13){return enterPass();}">
+					</div>
+					<div class="form-group">
+						이름<input type="text" class="form-control" name="name" maxlength="20" onkeydown="if(event.keyCode==13){return enterPass();}">
+					</div>
+					<div class="form-group">
+						생년월일<input type="text" class="form-control" name="birth" maxlength="20" onkeydown="if(event.keyCode==13){return enterPass();}">
+					</div>
+					<div class="form-group">
+						전화번호<input type="text" class="form-control" name="phone" maxlength="20" onkeydown="if(event.keyCode==13){return enterPass();}">
+					</div>
+					<div class="form-group">
+						프로필사진<input type="file" class="form-control" name="picture" maxlength="20" onkeydown="if(event.keyCode==13){return enterPass();}">
+					</div>
+					
+					
+					<input type="submit" class="btn btn-primary form-control" value="회원가입">
+				</form>
+		</div>
+	</div>
+	</div>
+	
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
+</body>
+</html>
