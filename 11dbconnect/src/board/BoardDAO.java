@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class BoardDAO {
 	private Connection conn;
@@ -39,7 +40,7 @@ public class BoardDAO {
 		return ""; //db 오류
 	}
 	public int getNext() {
-		String SQL = "SELECT BoardNumber FROM BOARD BY BoardNumber DESC";
+		String SQL = "SELECT BoardNumber FROM BOARD ORDER BY BoardNumber DESC";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -52,20 +53,81 @@ public class BoardDAO {
 		}
 		return -1; //db 오류
 	}
-	public int write(String Title, String ID, String Contents) {
-		String SQL = "INSERT INTO BOARD VALUS (?,null,?,?,?,?,0,0)";
+	public int write(String title, String ID, String contents) {
+		String SQL = "INSERT INTO BOARD VALUES (?,null,?,?,?,?,0,0)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext());
 			pstmt.setString(2, ID);
-			pstmt.setString(3, Title);
-			pstmt.setString(4, Contents);
+			pstmt.setString(3, title);
+			pstmt.setString(4, contents);
 			pstmt.setString(5, getDate());
-			rs = pstmt.executeQuery();
+			
 			return pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return -1; //db 오류
+	}
+	public ArrayList<Board> getList(int pageNumber){
+		String SQL = "SELECT * FROM BOARD WHERE BoardNumber < ? ORDER BY BoardNumber DESC LIMIT 10";
+		ArrayList<Board> list = new ArrayList<Board>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext() - (pageNumber -1)*10); //6보다 작은것만 가져온다.
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Board board = new Board();
+				board.setBoardNumber(rs.getInt(1));
+				board.setAcademicNumber(rs.getString(2));
+				board.setID(rs.getString(3));
+				board.settitle(rs.getString(4));
+				board.setcontents(rs.getString(5));
+				board.setDate(rs.getString(6));
+				board.setCode(rs.getInt(7));
+				board.setViews(rs.getInt(8));
+				list.add(board);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public boolean nextPage(int pageNumber) {
+		String SQL = "SELECT * FROM BOARD WHERE BoardNumber < ? ";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext() - (pageNumber -1)*10); //6보다 작은것만 가져온다.
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public Board getBoard(int BoardNumber) {
+		String SQL = "SELECT * FROM BOARD WHERE BoardNumber = ? ";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1,  BoardNumber);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Board board = new Board();
+				board.setBoardNumber(rs.getInt(1));
+				board.setAcademicNumber(rs.getString(2));
+				board.setID(rs.getString(3));
+				board.settitle(rs.getString(4));
+				board.setcontents(rs.getString(5));
+				board.setDate(rs.getString(6));
+				board.setCode(rs.getInt(7));
+				board.setViews(rs.getInt(8));
+				return board;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

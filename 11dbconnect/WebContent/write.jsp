@@ -73,17 +73,19 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input type="text" class="form-control" placeholder="글 제목" name="Title" maxlength="100"></td>
+						<td><input type="text" name="title" class="form-control" placeholder="글 제목" maxlength="100"></td>
 					</tr>
 					<tr>	
-						<td><textarea type="text" class="form-control" placeholder="글 내용" name="Contents" maxlength="1000" style="height:350px; width: 550px;"></textarea></td>
+						<td><textarea class="form-control" placeholder="글 내용" name="contents" style="height:350px; width: 550px;"></textarea></td>
 					</tr>
 				</tbody>
 			</table>
 			<input type="submit" class="btn btn-primary pull-right" value="글쓰기">
-		</form>
+			
+			</form>
 	</div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
 
