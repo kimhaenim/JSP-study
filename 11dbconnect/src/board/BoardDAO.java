@@ -130,4 +130,28 @@ public class BoardDAO {
 		}
 		return null;
 	}
+	public int update(int BoardNumber, String title, String contents) {
+		String SQL = "UPDATE BOARD SET Title = ?, Contents= ? WHERE BoardNumber =?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, title);
+			pstmt.setString(2, contents);
+			pstmt.setInt(3, BoardNumber);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //db 오류
+	}
+	public int delete(int BoardNumber) {
+		String SQL = "DELETE FROM BOARD WHERE BoardNumber =?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, BoardNumber);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //db 오류
+	}
 }
